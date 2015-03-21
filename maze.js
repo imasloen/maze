@@ -1,20 +1,11 @@
 var canvas = document.getElementById('canvas'),
   context = canvas.getContext('2d'),
 	floor = new Image(),
-	player = new Image();
+	player = new Image(),
+	walls = new Image();
 	
 canvas.height = 25*7;
 canvas.width = 25*7;
-
-var walls = [];
-for (var i = 0; i < 10; i++) {
-  walls[i] = new Image();
-  walls[i].src = 'images/wall-0'+i+'.png';
-}
-for (var i = 10; i < 16; i++) {
-  walls[i] = new Image();
-  walls[i].src = 'images/wall-'+i+'.png';
-}
 
 var maze = 
 	[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -24,9 +15,9 @@ var maze =
 	 [0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0],
 	 [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0],
 	 [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0],
-	 [0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0],
-	 [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0],
-	 [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0],
+	 [0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0],
+	 [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0],
+	 [0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0],
 	 [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0],
 	 [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
 	 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -36,6 +27,7 @@ var px = 3, py = 10;
 
 floor.src = 'images/floor-00.png';
 player.src = 'player.png';
+walls.src = 'images/wallset.png';
 
 function animate(time) {
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -49,7 +41,7 @@ function animate(time) {
         if (maze[posy][posx+1] === 1) wallIndex += 2;
         if (maze[posy+1][posx] === 1) wallIndex += 4;
         if (maze[posy][posx-1] === 1) wallIndex += 8;
-        context.drawImage(walls[wallIndex], x*walls[0].width, y*walls[0].height);
+        context.drawImage(walls, wallIndex*walls.height, 0, walls.height, walls.height, x*walls.height, y*walls.height, walls.height, walls.height);
       }
       else context.drawImage(floor, x*floor.width, y*floor.height);
     }
