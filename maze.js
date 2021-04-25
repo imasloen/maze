@@ -394,10 +394,10 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 
-  for (var y = 0; y < 7; y++) {
+  for (var y = -25; y < 7; y++) {
     for (var x = 0; x < 7; x++) {
       var posx = px+x-3, posy = py+y-3;
-      if (maze[posy][posx] === 1 && (x != 3 || y < 4)) {
+      if (posx >= 0 && posy >= 0 && posx < 25 && posy < 25 && maze[posy][posx] === 1 && (x != 3 || y < 4)) {
         // Create a perspective matrix, a special matrix that is
         // used to simulate the distortion of perspective in a camera.
         // Our field of view is 45 degrees, with a width/height
@@ -428,7 +428,7 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
 
         mat4.translate(modelViewMatrix,     // destination matrix
                       modelViewMatrix,     // matrix to translate
-                      [(x - 3)*2, 0.0, -6.0+(y - 3)*2]);  // amount to translate
+                      [(x - 3)*2, 0.0, -2.0+(y - 3)*2]);  // amount to translate
         mat4.rotate(modelViewMatrix,  // destination matrix
                     modelViewMatrix,  // matrix to rotate
                     cubeRotation,     // amount to rotate in radians
