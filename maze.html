@@ -16,15 +16,35 @@
             -moz-box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
             box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
          }
+
+         #canvas2 {
+            background: #ffffff;
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 10px;
+            -webkit-box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            -moz-box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+         }
       </style>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"
+         integrity="sha512-zhHQR0/H5SEBL3Wn6yYSaTTZej12z0hVZKOv3TwCUXT1z5qeqGcXJLLrbERYRScEDDpYIJhPC1fk31gqR783iQ=="
+         crossorigin="anonymous">
+      </script>
    </head>
 
   <body>
-    <canvas id='canvas' width='250' height='250'>
+    <canvas id='canvas' width='125' height='125'>
+      Canvas not supported
+    </canvas>
+    <br>
+    <canvas id='canvas2' width='125' height='125'>
       Canvas not supported
     </canvas>
 
-    <script src='requestNextAnimationFrame.js'></script>
+    <!-- script src='requestNextAnimationFrame.js'></script -->
+    
     <script src='maze.js'></script>
   </body>
 </html>
