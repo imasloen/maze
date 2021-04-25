@@ -453,24 +453,24 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
         programInfo.attribLocations.vertexPosition);
   }
 
-  // Tell WebGL how to pull out the colors from the color buffer
-  // into the vertexColor attribute.
+  // Tell WebGL how to pull out the texture coordinates from
+  // the texture coordinate buffer into the textureCoord attribute.
   {
-    const numComponents = 4;
+    const numComponents = 2;
     const type = gl.FLOAT;
     const normalize = false;
     const stride = 0;
     const offset = 0;
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord);
     gl.vertexAttribPointer(
-        programInfo.attribLocations.vertexColor,
+        programInfo.attribLocations.textureCoord,
         numComponents,
         type,
         normalize,
         stride,
         offset);
     gl.enableVertexAttribArray(
-        programInfo.attribLocations.vertexColor);
+        programInfo.attribLocations.textureCoord);
   }
 
   // Tell WebGL which indices to use to index the vertices
