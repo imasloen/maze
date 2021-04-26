@@ -154,8 +154,8 @@ function checkKey(e) {
       // left
       nextInput = function () {
         if (maze[py][px-1] === 0) {
-          xoff+=5;
-          if (xoff < 25) return false;
+          xoff+=2;
+          if (xoff < 16) return false;
           xoff = 0;
           px--;
         }
@@ -166,8 +166,8 @@ function checkKey(e) {
       // up
       nextInput = function () {
         if (maze[py-1][px] === 0) {
-          yoff+=5;
-          if (yoff < 25) return false;
+          yoff+=2;
+          if (yoff < 16) return false;
           yoff = 0;
           py--;
         }
@@ -178,8 +178,8 @@ function checkKey(e) {
       // right
       nextInput = function () {
         if (maze[py][px+1] === 0) {
-          xoff-=5;
-          if (xoff > -25) return false;
+          xoff-=2;
+          if (xoff > -16) return false;
           xoff = 0;
           px++;
         }
@@ -190,8 +190,8 @@ function checkKey(e) {
       // down
       nextInput = function () {
         if (maze[py+1][px] === 0) {
-          yoff-=5;
-          if (yoff > -25) return false;
+          yoff-=2;
+          if (yoff > -16) return false;
           yoff = 0;
           py++;
         }
@@ -457,7 +457,7 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
   for (var y = -25; y < 7; y++) {
     for (var x = 0; x < 7; x++) {
       var posx = px+x-3, posy = py+y-3;
-      if (posx >= 0 && posy >= 0 && posx < 25 && posy < 25 && maze[posy][posx] === 1 && (x != 3 || y < 4)) {
+      if (posx >= 0 && posy >= 0 && posx < 25 && posy < 25 && maze[posy][posx] === 1 /*&& (x != 3 || y < 4)*/) {
         // Create a perspective matrix, a special matrix that is
         // used to simulate the distortion of perspective in a camera.
         // Our field of view is 45 degrees, with a width/height
@@ -467,7 +467,7 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
 
         const fieldOfView = 45 * Math.PI / 180;   // in radians
         const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
-        const zNear = 0.1;
+        const zNear = 1.5;
         const zFar = 100.0;
         const projectionMatrix = mat4.create();
 
@@ -488,15 +488,15 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
 
         mat4.translate(modelViewMatrix,     // destination matrix
                       modelViewMatrix,     // matrix to translate
-                      [(x - 3)*2, 0.0, -2.0+(y - 3)*2]);  // amount to translate
-        mat4.rotate(modelViewMatrix,  // destination matrix
-                    modelViewMatrix,  // matrix to rotate
-                    cubeRotation,     // amount to rotate in radians
-                    [0, 0, 1]);       // axis to rotate around (Z)
-        mat4.rotate(modelViewMatrix,  // destination matrix
-                    modelViewMatrix,  // matrix to rotate
-                    cubeRotation * .7,// amount to rotate in radians
-                    [0, 1, 0]);       // axis to rotate around (X)
+                      [(x - 3.0 + xoff/16.0)*2, 0.0, -2.0+(y - 3.0 + yoff/16.0)*2]);  // amount to translate
+        // mat4.rotate(modelViewMatrix,  // destination matrix
+        //             modelViewMatrix,  // matrix to rotate
+        //             cubeRotation,     // amount to rotate in radians
+        //             [0, 0, 1]);       // axis to rotate around (Z)
+        // mat4.rotate(modelViewMatrix,  // destination matrix
+        //             modelViewMatrix,  // matrix to rotate
+        //             cubeRotation * .7,// amount to rotate in radians
+        //             [0, 1, 0]);       // axis to rotate around (X)
         
         const normalMatrix = mat4.create();
         mat4.invert(normalMatrix, modelViewMatrix);
