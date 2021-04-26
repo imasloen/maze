@@ -99,7 +99,7 @@ walls.src = 'images/wallset2.png';
   // objects we'll be drawing.
   const buffers = initBuffers(gl);
 
-  const texture = loadTexture(gl, 'iamges/walltexture.png');
+  const texture = loadTexture(gl, 'images/walltexture.png');
 
   var then = 0;
 
